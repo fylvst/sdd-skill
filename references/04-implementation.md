@@ -29,6 +29,7 @@ In this phase, the AI must strictly adhere to the following constraints:
 | ✅ **Must follow task order** | Implement strictly in the dependency order defined in `tasks.md`; no skipping ahead |
 | ✅ **Must write tests first** | Follow TDD: write the failing test first, then write the implementation, then refactor |
 | ✅ **Must update `proofs.md` after each task** | Record verification evidence (test output or screenshot) immediately; do not backfill later |
+| 🔴 **Must update task status in `tasks.md` immediately** | **Hard gate**: the moment a task is completed, its status in `tasks.md` MUST be changed to `✅ done` and the progress summary counts MUST be recalculated — before starting the next task. Proceeding to the next task with stale status is a workflow violation. |
 | ✅ **Each task must be a separate commit** | One commit per task; commit message format must follow the convention |
 | ✅ **Code must follow project standards** | Style, lint rules, and naming conventions must conform to the existing codebase |
 | ❌ **No implementing features outside `spec.md`** | Do not add undocumented features or parameters "while you are at it" |
@@ -77,9 +78,11 @@ For each task in `tasks.md` (in dependency order):
 3. **Implement the minimum code** — make the test pass.
 4. **Run all tests** — confirm no regressions.
 5. **Refactor if needed** — improve clarity, remove duplication.
-6. **Update `tasks.md`** — mark task as `done`.
+6. **Update `tasks.md` status** *(hard gate — cannot skip)* — immediately change the task row status from `🔄 in-progress` to `✅ done`, and recalculate the progress summary table (✅ / 🔄 / ⏳ counts). **Do not start the next task until this is done.**
 7. **Record proof** — append a verification entry to `proofs.md`.
 8. **Commit** — atomic commit with a meaningful message.
+
+> ⚠️ **Workflow Violation Warning**: If any task status in `tasks.md` is found to be stale (completed code exists but status still shows `pending` or `in-progress`), stop immediately, reconcile all statuses, and update the progress summary before continuing.
 
 ---
 
